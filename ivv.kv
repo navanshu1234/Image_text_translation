@@ -1,0 +1,55 @@
+Root:
+img: img
+lbl_path: lbl_path
+
+canvas.before:
+    Color:
+        rgba: 1, 1, 1, 1
+    Rectangle:
+        pos: self.pos
+        size: self.size
+
+BoxLayout:
+    orientation: 'vertical'
+    BoxLayout:
+        size_hint_y: None
+        height: 30
+        Button:
+            text: 'Load'
+            on_release: root.show_load()
+
+    BoxLayout:
+        padding: 20
+
+        GridLayout:
+            rows: 2
+            Image:
+                id: img
+                size_hint: (.8, .8)
+
+            GridLayout:
+                rows: 3
+                Label:
+                    id: lbl_path
+                    color: (1, 0, 0, 1)
+                    text: "Picture:"
+                    size_hint: (.8, .8)
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+        Button:
+            text: "Load"
+            on_release: root.load(filechooser.path, filechooser.selection)
